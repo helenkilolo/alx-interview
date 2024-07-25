@@ -1,24 +1,23 @@
 #!/usr/bin/python3
+"""
+Main file for testing
+"""
 
-""" Contains makeChange function"""
 
-
-def makeChange(coins, total):
+def makeChange(coins, amount):
     """
-    Returns: fewest number of coins needed to meet total
-        If total is 0 or less, return 0
-        If total cannot be met by any number of coins you have, return -1
+    How many of this type of coin can I get with my money? Okay,
+        I'll take that many. Now, how much money do I have left?
+        And how many coins do I have in my pocket?
     """
-    if not coins or coins is None:
-        return -1
-    if total <= 0:
+    if amount < 1:
         return 0
-    change = 0
-    coins = sorted(coins)[::-1]
+    coins.sort(reverse=True)
+    count = 0
     for coin in coins:
-        while coin <= total:
-            total -= coin
-            change += 1
-        if (total == 0):
-            return change
-    return -1
+        if amount == 0:
+            break
+        num = amount // coin
+        amount -= num * coin
+        count += num
+    return count if amount == 0 else -1
